@@ -3,20 +3,27 @@ import styles from '../styles/Home.module.css'
 import Banner from '../components/banner/banner'
 import NavBar from '../components/nav/navbar'
 import SectionCards from '../components/card/section-cards'
-import { getVideos } from '../lib/videos'
+import { getDisneyVideos, getTravelVideos, getProductivityVideos, getPopularVideos
+} from '../lib/videos'
 
 export async function getServerSideProps() {
-  const disneyVideos = getVideos();
+  const disneyVideos = getDisneyVideos();
+  const productivityVideos = getProductivityVideos();
+  const travelVideos = getTravelVideos();
+  const popularVideos = getPopularVideos();
 
   return {
     props: {
-      disneyVideos
+      disneyVideos,
+      productivityVideos,
+      travelVideos,
+      popularVideos
     }
   }
 }
 
 export default function Home(props) {
-  const { disneyVideos } = props;
+  const { disneyVideos, productivityVideos, travelVideos, popularVideos } = props;
 
   return (
     <div className={styles.container}>
@@ -33,7 +40,9 @@ export default function Home(props) {
        />
       <div className={styles.sectionWrapper}>
         <SectionCards title='Disney' videos={disneyVideos} size='large'/>
-        <SectionCards title='Productivity' videos={disneyVideos} size='medium'/>
+        <SectionCards title='Productivity' videos={productivityVideos} size='medium'/>
+        <SectionCards title='Travel' videos={travelVideos} size='medium'/>
+        <SectionCards title='Popular' videos={popularVideos} size='small'/>
       </div>
 
     </div>
