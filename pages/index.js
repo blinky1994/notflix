@@ -34,9 +34,10 @@ export default function Home(props) {
       </Head>
       <NavBar username='user@gmail.com'/>
       <Banner 
-      title='Haunting of Ed'
-      subTitle="Don't turn back"
-      imgUrl='/static/ed.jpg' 
+        title='Haunting of Ed'
+        subTitle="Don't turn back"
+        imgUrl='/static/ed.jpg' 
+        videoId = 'sVZUr5XmAec'
        />
       <div className={styles.sectionWrapper}>
         <SectionCards title='Disney' videos={disneyVideos} size='large'/>

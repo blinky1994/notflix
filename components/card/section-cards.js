@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from './card';
 import styles from './section-cards.module.css'
+import Link from 'next/link';
 
 const SectionCards = (props) => {
 
@@ -12,12 +13,13 @@ const SectionCards = (props) => {
       <div className={styles.cardWrapper}>
         {
           videos.map((video, index) => (
-            <Card 
-              id={index}
-              key={index}
-              imgUrl={video.imgUrl}
-              size={size}
-            />
+            <Link href={`/video/${video.id}`} key={index}>
+              <Card 
+                id={index}
+                imgUrl={video.imgUrl}
+                size={size}
+              />
+            </Link>
           ))
         }
 
