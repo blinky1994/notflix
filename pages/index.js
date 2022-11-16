@@ -3,7 +3,8 @@ import styles from '../styles/Home.module.css'
 import Banner from '../components/banner/banner'
 import NavBar from '../components/nav/navbar'
 import SectionCards from '../components/card/section-cards'
-import { getDisneyVideos, getTravelVideos, getProductivityVideos, getPopularVideos
+import { getDisneyVideos, getTravelVideos, getProductivityVideos,
+   getPopularVideos
 } from '../lib/videos'
 
 export async function getServerSideProps() {
@@ -17,13 +18,15 @@ export async function getServerSideProps() {
       disneyVideos,
       productivityVideos,
       travelVideos,
-      popularVideos
+      popularVideos,
+      bannerVideos
     }
   }
 }
 
 export default function Home(props) {
-  const { disneyVideos, productivityVideos, travelVideos, popularVideos } = props;
+  const { disneyVideos, productivityVideos, travelVideos, popularVideos,
+  bannerVideos } = props;
 
   return (
     <div className={styles.container}>

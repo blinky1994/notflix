@@ -5,21 +5,44 @@ import cls from 'classnames'
 import NavBar from '../../components/nav/navbar'
 Modal.setAppElement('#__next');
 
-const VideoPage = () => {
-  const router = useRouter();
-
+export async function getStaticProps() {
   const video = {
     title: 'Some title',
     publishTime: '1994-03-26',
-    description: "Some description that describes what this video is abSome description that describes what this video is about.Some description that describes what this video is about.ouSome description that describes what this video is about.t Some description that describes what this video is about.Some description that describes what this video is about." ,
+    description: "This is a description" ,
     channelTitle: 'Paramount Pictures',
     viewCount: 10000
   }
 
+  return {
+    props: {
+      video,
+    },
+    revalidate: 10,
+  }
+}
+
+export async function getStaticPaths() {
+  const listOfVideos = ['FtZAS9gtqcs', 'QtFS9hHUIVQ', 'mfujUuM8LiU']
+
+  const paths = listOfVideos.map(videoId => (
+    {
+      params: { videoId },
+    }
+  ))
+
+  return { paths, fallback: 'blocking' }
+
+}
+
+const VideoPage = (props) => {
+  const { video } = props;
+  const router = useRouter();
+
   const { title, publishTime, description, channelTitle, viewCount } = video;
 
   const { videoId } = router.query;
-  console.log(videoId);
+
   return (
     
     <div>
