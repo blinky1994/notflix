@@ -31,8 +31,9 @@ const Banner = (props) => {
                             <Image 
                             alt='play button' 
                             src='/static/play-arrow.svg' 
-                            width={24} 
-                            height={24} />
+                            width={32} 
+                            height={32} 
+                            />
                             <span className={styles.playText}>Play</span>
                         </button>
                     </div>

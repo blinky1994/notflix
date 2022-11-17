@@ -18,8 +18,7 @@ export async function getServerSideProps() {
       disneyVideos,
       productivityVideos,
       travelVideos,
-      popularVideos,
-      bannerVideos
+      popularVideos
     }
   }
 }
@@ -37,16 +36,16 @@ export default function Home(props) {
       </Head>
       <NavBar username='user@gmail.com'/>
       <Banner 
-        title='Haunting of Ed'
-        subTitle="Don't turn back"
-        imgUrl='/static/ed.jpg' 
-        videoId = 'sVZUr5XmAec'
+        title="Can't even play minecraft in Ohio"
+        subTitle="I wish I kid"
+        imgUrl='/static/background.png' 
+        videoId = 'FtZAS9gtqcs'
        />
       <div className={styles.sectionWrapper}>
         <SectionCards title='Disney' videos={disneyVideos} size='large'/>
-        <SectionCards title='Productivity' videos={productivityVideos} size='medium'/>
-        <SectionCards title='Travel' videos={travelVideos} size='medium'/>
-        <SectionCards title='Popular' videos={popularVideos} size='small'/>
+        <SectionCards title='Productivity' videos={productivityVideos} size='large'/>
+        <SectionCards title='Travel' videos={travelVideos} size='large'/>
+        <SectionCards title='Popular' videos={popularVideos} size='large'/>
       </div>
 
     </div>
