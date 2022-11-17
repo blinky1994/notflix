@@ -7,6 +7,8 @@ import { getDisneyVideos, getTravelVideos, getProductivityVideos,
    getPopularVideos
 } from '../lib/videos'
 
+import { queryHasuraGQL } from '../lib/db/hasura'
+
 export async function getServerSideProps() {
   const disneyVideos = getDisneyVideos();
   const productivityVideos = getProductivityVideos();
@@ -23,10 +25,21 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home(props) {
-  const { disneyVideos, productivityVideos, travelVideos, popularVideos,
-  bannerVideos } = props;
 
+export default function Home(props) {
+  const { disneyVideos, productivityVideos, travelVideos, popularVideos } = props;
+  const operationsDoc = `
+query MyQuery {
+  users {
+    id
+    email
+    issuer
+    publicAddress
+  }
+}
+`;
+
+  queryHasuraGQL(operationsDoc);
   return (
     <div className={styles.container}>
       <Head>
@@ -42,10 +55,10 @@ export default function Home(props) {
         videoId = 'FtZAS9gtqcs'
        />
       <div className={styles.sectionWrapper}>
-        <SectionCards title='Disney' videos={disneyVideos} size='large'/>
-        <SectionCards title='Productivity' videos={productivityVideos} size='large'/>
-        <SectionCards title='Travel' videos={travelVideos} size='large'/>
-        <SectionCards title='Popular' videos={popularVideos} size='large'/>
+        <SectionCards title='Disney' videos={disneyVideos} size='small'/>
+        <SectionCards title='Productivity' videos={productivityVideos} size='small'/>
+        <SectionCards title='Travel' videos={travelVideos} size='small'/>
+        <SectionCards title='Popular' videos={popularVideos} size='small'/>
       </div>
 
     </div>
