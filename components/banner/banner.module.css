@@ -37,7 +37,7 @@
   .series {
     font-size: 0.875rem /* 14px */;
     line-height: 1.25rem /* 20px */;
-    color: var(--gray20);
+    color: var(--white10);
     align-self: center;
     margin-left: 0.5rem;
   }
@@ -55,7 +55,7 @@
     margin: 0.5rem 0;
     font-size: 1.75rem /* 18px */;
     line-height: 1.75rem /* 28px */;
-    color: rgb(223, 223, 223);
+    color: var(--white10);
     -webkit-text-stroke: 1px gray; /* width and color */
   }
   

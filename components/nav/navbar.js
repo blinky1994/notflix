@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { magic } from '../../lib/magic-client';
-import { m } from 'framer-motion';
 
 const NavBar = () => {
     const router =  useRouter();
@@ -16,6 +15,7 @@ const NavBar = () => {
         const getUserEmail = async () => {
             try {
                 const { email } = await magic.user.getMetadata();  
+                const didToken = await magic.user.getIdToken();
                 if (email) {
                     setUserName(email); 
                 } 
