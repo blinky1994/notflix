@@ -6,7 +6,6 @@ import SectionCards from '../components/card/section-cards'
 import { getDisneyVideos, getTravelVideos, getProductivityVideos,
    getPopularVideos
 } from '../lib/videos'
-import { startFetchMyQuery } from '../lib/db/hasura'
 
 export async function getServerSideProps() {
   const disneyVideos = getDisneyVideos();
@@ -27,8 +26,7 @@ export async function getServerSideProps() {
 
 export default function Home(props) {
   const { disneyVideos, productivityVideos, travelVideos, popularVideos } = props;
-  startFetchMyQuery();
-  
+
   return (
     <div className={styles.container}>
       <Head>

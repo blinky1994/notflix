@@ -36,7 +36,20 @@ const Login = () => {
             setIsLoading(true);
             const didToken = await magic.auth.loginWithMagicLink({ email: emailInput });
             if (didToken) {
-                return true;
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${didToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                })
+
+                const loggedInResponse = await response.json();
+                if (loggedInResponse.done) {
+                    return true;
+                } else {
+                    throw new Error('Something went wrong when logging in')
+                }
             }
 
         } catch (e) {
