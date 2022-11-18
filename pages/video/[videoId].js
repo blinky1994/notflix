@@ -4,6 +4,9 @@ import styles from '../../styles/Video.module.css'
 import cls from 'classnames'
 import NavBar from '../../components/nav/navbar'
 import { getVideoById } from '../../lib/videos'
+import Like from '../../components/icons/like-icon'
+import DisLike from '../../components/icons/dislike-icon'
+import { useState } from 'react'
 
 Modal.setAppElement('#__next');
 
@@ -79,12 +82,28 @@ export async function getStaticPaths(context) {
 const VideoPage = (props) => {
   const { video } = props;
 
+  const [ toggleLike, setToggleLike ] = useState(false);
+  const [ toggleDisLike, setToggleDisLike ] = useState(false);
+
   const router = useRouter();
 
   const { title, publishTime, description, channelTitle, viewCount } = video;
 
   const { videoId } = router.query;
 
+  const handleToggleLike = (e) => {
+    e.preventDefault();
+    console.log('handleToggleLike');
+    setToggleLike(!toggleLike);
+    setToggleDisLike(toggleLike);
+  }
+
+  const handleToggleDislike = (e) => {
+    e.preventDefault();
+    console.log('handleToggleDislike');
+    setToggleDisLike(!toggleDisLike);
+    setToggleLike(toggleDisLike);
+  }
   return (
     
     <div>
@@ -108,6 +127,21 @@ const VideoPage = (props) => {
         >
         </iframe>
     </div>
+
+      <div className={styles.likeDislikeBtnWrapper}>
+        <div className={styles.likeBtnWrapper}>
+          <button onClick={handleToggleLike}>
+            <div className={styles.btnWrapper}>
+              <Like selected={toggleLike} />
+            </div>
+          </button>
+      </div>
+          <button onClick={handleToggleDislike}>
+          <div className={styles.btnWrapper}>
+            <DisLike selected = {toggleDisLike}/>
+          </div>
+          </button>
+      </div>
 
       <div className={styles.modalBody}>
         <div className={styles.modalBodyContent}>
