@@ -7,11 +7,21 @@ import { getDisneyVideos, getTravelVideos, getProductivityVideos,
    getPopularVideos
 } from '../lib/videos'
 import { getWatchItAgainVideos } from '../lib/videos'
+import RedirectUser from '../utils/redirectUser'
 
 export async function getServerSideProps(context) {
-  const userId = 'did:ethr:0x67dd71A73682F0023caEc8A99A2c57Ec00Aa63e4';
-  const token = context.req ? context.req?.cookies.token : null;
-
+  const { userId, token } = await RedirectUser(context);
+  
+  if (!userId) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+  
   const disneyVideos = getDisneyVideos();
   const productivityVideos = getProductivityVideos();
   const travelVideos = getTravelVideos();

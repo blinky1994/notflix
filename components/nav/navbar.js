@@ -4,19 +4,20 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { magic } from '../../lib/magic-client';
-
 const NavBar = () => {
     const router =  useRouter();
 
     const [ showDropdown, setShowDropdown ] = useState(false);
     const [ userName, setUserName ] = useState('');
-
+    const [ didToken, setDidToken ] = useState('');
+    
     useEffect(() => {
         const getUserEmail = async () => {
             try {
                 const { email } = await magic.user.getMetadata();  
                 const didToken = await magic.user.getIdToken();
                 if (email) {
+                    setDidToken(didToken);
                     setUserName(email); 
                 } 
             } catch (error) {
@@ -42,10 +43,13 @@ const NavBar = () => {
     }
 
     const handleSignOut = async (e) => {
+        e.preventDefault();
         try {
-            await magic.user.logout();
-        } catch (e) {
-            console.error('Error logging out: ', e)
+          const response = await fetch("/api/logout");
+          await response.json();
+        } catch (error) {
+          console.error("Error logging out", error);
+          router.push("/login");
         }
     }
   return (
@@ -80,7 +84,7 @@ const NavBar = () => {
                 showDropdown && 
                 <div className={styles.navDropdown}>
                     <div>
-                        <Link onClick={handleSignOut} className={styles.linkName} href='/login'>Sign Out</Link>
+                        <Link onClick={handleSignOut} className={styles.linkName} href=''>Sign Out</Link>
                         <div className={styles.lineWrapper}></div>
                     </div>
                 </div>

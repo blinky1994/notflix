@@ -11,18 +11,18 @@ function MyApp({ Component, pageProps }) {
 
   const router = useRouter();
   useEffect(() => {
-    // const AutoLogin = async () => {;
-    //   const isLoggedIn = await magic.user.isLoggedIn();
+    const AutoLogin = async () => {;
+      const isLoggedIn = await magic.user.isLoggedIn();
       
-    //   if (isLoggedIn) {
-    //     //Route to '/'
-    //     router.push('/');
-    //   } else {
-    //     //Route to '/login'
-    //     router.push('/login');
-    //   }
-    // }
-    // AutoLogin();
+      if (isLoggedIn) {
+        //Route to '/'
+        router.push('/');
+      } else {
+        //Route to '/login'
+        router.push('/login');
+      }
+    }
+    AutoLogin();
   }, [])
 
   useEffect(()=> {
