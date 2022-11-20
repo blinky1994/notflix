@@ -94,16 +94,35 @@ const VideoPage = (props) => {
   const handleToggleLike = (e) => {
     e.preventDefault();
     console.log('handleToggleLike');
+    const val = !toggleLike;
     setToggleLike(!toggleLike);
     setToggleDisLike(toggleLike);
+
+    runRatingService(val ? 1 : 0);
   }
 
   const handleToggleDislike = (e) => {
     e.preventDefault();
     console.log('handleToggleDislike');
+    const val = !toggleDisLike;
     setToggleDisLike(!toggleDisLike);
     setToggleLike(toggleDisLike);
+
+    runRatingService(val ? 0 : 1);
   }
+
+  const runRatingService = async (favourited) => {
+    const response = await fetch('/api/stats', {
+      method: 'POST',
+      body: JSON.stringify({ videoId, favourited }),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+
+    console.log('data', await response.json());
+  }
+
   return (
     
     <div>
