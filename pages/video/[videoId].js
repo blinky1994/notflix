@@ -6,7 +6,7 @@ import NavBar from '../../components/nav/navbar'
 import { getVideoById } from '../../lib/videos'
 import Like from '../../components/icons/like-icon'
 import DisLike from '../../components/icons/dislike-icon'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 Modal.setAppElement('#__next');
 
@@ -90,6 +90,27 @@ const VideoPage = (props) => {
   const { title, publishTime, description, channelTitle, viewCount } = video;
 
   const { videoId } = router.query;
+
+  useEffect(() => {
+    const updateRating = async () => {
+      const response = await fetch(`/api/stats?videoId=${videoId}`, {
+        method: 'GET'
+      })
+      const data = await response.json();
+      if (data.length > 0) {
+        const favourited = data[0].favourited;
+        if (favourited === 1) {
+          setToggleLike(true);
+          setToggleDisLike(false);
+        } else if (favourited === 0) {
+          setToggleLike(false);
+          setToggleDisLike(true);
+        }
+      }
+    }
+    
+    updateRating();
+  }, [])
 
   const handleToggleLike = (e) => {
     e.preventDefault();
