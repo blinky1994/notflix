@@ -32,8 +32,8 @@ export default async function login(req, res) {
       res.status(200).json({ done: true });
 
     } catch (error) {
-      console.error('Something went wrong: ', error);
-      res.status(500).json({ done: false });
+      console.error('Error occured /login', error)
+      res.status(500).send({ done:false, error: error?.message})
     }
   } else {
     res.json({ done: false })
