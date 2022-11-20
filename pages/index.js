@@ -8,9 +8,9 @@ import { getDisneyVideos, getTravelVideos, getProductivityVideos,
 } from '../lib/videos'
 import { getWatchItAgainVideos } from '../lib/videos'
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const userId = 'did:ethr:0x67dd71A73682F0023caEc8A99A2c57Ec00Aa63e4';
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJkaWQ6ZXRocjoweDY3ZGQ3MUE3MzY4MkYwMDIzY2FFYzhBOTlBMmM1N0VjMDBBYTYzZTQiLCJwdWJsaWNBZGRyZXNzIjoiMHg2N2RkNzFBNzM2ODJGMDAyM2NhRWM4QTk5QTJjNTdFYzAwQWE2M2U0IiwiZW1haWwiOiJpdmFuY2hlbnlpZmFuQGhvdG1haWwuY29tIiwib2F1dGhQcm92aWRlciI6bnVsbCwicGhvbmVOdW1iZXIiOm51bGwsImlhdCI6MTY2ODkzODYzMSwiZXhwIjoxNjY5NTQzNDMxLCJodHRwczovL2hhc3VyYS5pby9qd3QvY2xhaW1zIjp7IngtaGFzdXJhLWFsbG93ZWQtcm9sZXMiOlsidXNlciIsImFkbWluIl0sIngtaGFzdXJhLWRlZmF1bHQtcm9sZSI6InVzZXIiLCJ4LWhhc3VyYS11c2VyLWlkIjoiZGlkOmV0aHI6MHg2N2RkNzFBNzM2ODJGMDAyM2NhRWM4QTk5QTJjNTdFYzAwQWE2M2U0In19.ew-1eUr_o6WYVJsFGmHgDHDU3nmykHjlzX21R2sn5yw';
+  const token = context.req ? context.req?.cookies.token : null;
 
   const disneyVideos = getDisneyVideos();
   const productivityVideos = getProductivityVideos();
@@ -29,7 +29,6 @@ export async function getServerSideProps() {
     }
   }
 }
-
 
 export default function Home(props) {
   const { disneyVideos, productivityVideos, travelVideos, popularVideos, watchItAgainVideos } = props;
@@ -50,7 +49,7 @@ export default function Home(props) {
        />
       <div className={styles.sectionWrapper}>
         { 
-          watchItAgainVideos.length && 
+          watchItAgainVideos.length > 0 && 
           <SectionCards title='Watch It Again' videos={watchItAgainVideos} size='small'/> 
         }
         <SectionCards title='Disney' videos={disneyVideos} size='small'/>
