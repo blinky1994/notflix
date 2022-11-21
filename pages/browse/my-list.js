@@ -17,7 +17,7 @@ export async function getServerSideProps(context) {
       }
     }
   }
-
+  
   const myListVideos = await getMyListVideos(userId, token);
  
   return {
