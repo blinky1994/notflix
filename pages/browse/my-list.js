@@ -39,7 +39,9 @@ const MyList = (props) => {
       <main className={styles.main}>
         <NavBar />
           <div className={styles.sectionWrapper}>
-            <SectionCards shouldWrap title='My List' videos={myListVideos} size='small'/>
+           { myListVideos && <SectionCards shouldWrap title='My List' videos={myListVideos} size='small'/>}
+          { !myListVideos.length && <h3 className={styles.subTitle}>Like a video to add it here</h3>}
+
           </div>
       </main>
       

@@ -3,7 +3,7 @@ import { magic } from '../lib/magic-client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Loading from '../components/loading/loading'
-
+import { UserContextProvider } from '../context/user-context'
 function MyApp({ Component, pageProps }) {
 
   //If logged in, route to '/'. Else, route to '/login'
@@ -37,7 +37,11 @@ function MyApp({ Component, pageProps }) {
     }
   }, [router]);
   
-  return isLoading? <Loading /> : <Component {...pageProps} />
+  return isLoading? 
+  <Loading /> : 
+  <UserContextProvider>
+    <Component {...pageProps} />
+  </UserContextProvider>
 }
 
 export default MyApp

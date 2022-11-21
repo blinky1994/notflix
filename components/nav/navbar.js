@@ -4,11 +4,13 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { magic } from '../../lib/magic-client';
+import { UserContext } from '../../context/user-context';
+import { useContext } from 'react';
+
 const NavBar = () => {
     const router =  useRouter();
-
+    const { user, setUser } = useContext(UserContext);
     const [ showDropdown, setShowDropdown ] = useState(false);
-    const [ userName, setUserName ] = useState('');
     const [ didToken, setDidToken ] = useState('');
     
     useEffect(() => {
@@ -18,7 +20,7 @@ const NavBar = () => {
                 const didToken = await magic.user.getIdToken();
                 if (email) {
                     setDidToken(didToken);
-                    setUserName(email); 
+                    setUser(email);
                 } 
             } catch (error) {
                 console.error('Error retrieving email: ', error);
@@ -72,7 +74,7 @@ const NavBar = () => {
         <nav className={styles.navContainer}>
             <div>
                 <button onClick={handleShowDropdown} className={styles.usernameBtn}>
-                    <p className={styles.username}>{ userName }</p>
+                    <p className={styles.username}>{ user }</p>
                     <Image 
                         alt='sign out dropdown' 
                         src='/static/dropdown-arrow.svg' 

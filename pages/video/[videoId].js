@@ -114,7 +114,6 @@ const VideoPage = (props) => {
 
   const handleToggleLike = (e) => {
     e.preventDefault();
-    console.log('handleToggleLike');
     const val = !toggleLike;
     setToggleLike(!toggleLike);
     setToggleDisLike(toggleLike);
@@ -124,7 +123,6 @@ const VideoPage = (props) => {
 
   const handleToggleDislike = (e) => {
     e.preventDefault();
-    console.log('handleToggleDislike');
     const val = !toggleDisLike;
     setToggleDisLike(!toggleDisLike);
     setToggleLike(toggleDisLike);
@@ -140,8 +138,6 @@ const VideoPage = (props) => {
         'Content-Type': 'application/json',
       }
     })
-
-    console.log('data', await response.json());
   }
 
   return (

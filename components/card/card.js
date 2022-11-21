@@ -19,7 +19,6 @@ const Card = (props) => {
     }
 
     const handleOnError = () => {
-        console.log('handle erorr');
         setImgSrc('/static/clifford.webp')
     }
 
