@@ -5,8 +5,7 @@ the server side rendering provides a very fast loading time. More details on ren
 ![notflix](https://user-images.githubusercontent.com/56903269/209973264-8c485c1b-0ad6-4164-933b-7021eaacd14a.png)
 
 # User authentication
-For user authentication, I used Magic Auth (https://magic.link/docs/home/welcome) to provide a passwordless login which uses email verification. Magic Auth provides a DID token which I later used to create a JSON web token to authenticate the user. The user will be automatically be signed out
-if no cookies are created.
+For user authentication, I used Magic Auth (https://magic.link/docs/home/welcome) to provide a passwordless login which uses email verification. Magic Auth provides a DID (Decentralized ID) token which I later used to create a JSON web token to authenticate the user. The user will be automatically be signed out if no cookies are created.
 
 # Youtube API
 I obtained video data from the Youtube API and due to the API limit, I saved the data in a JSON format and used them for the videos page so it is not dynamic (A dynamic videos page was the initial plan but I ran out of limit as mentioned before).
@@ -19,3 +18,6 @@ When there's dynamic data such as view counts, static generation does not update
 
 # Server Side Rendering
 As this is a content-heavy site for videos, server side rendering will be a good technique here as the server can take on the load of pre-rendering the html with the video content and at the same time, allow for proper SEO (search engine optimization). This further improves the user experience due to faster loading times.
+
+# Storing user liked videos
+A `/stats` endpoint works with Hasura GraphQL to fetch / mutate the user's stat data such as `watched`, `userId`, `videoId`, `favourited`. The database that Hasura is linked to is the PostgreSQL relational database where there is a user's table and stats table. The stats table hold the data as mentioned before and the user's table stores data like `issuer` (Decentralized ID), `publicAddress` (user's public key), `email`, and `id`.
