@@ -1,34 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Notflix
+Video streaming site based on Netflix. Uses Magic API for passwordless authentication and youtube API to fetch videos. Since it's built on NextJS,
+the server side rendering provides a very fast loading time. More details on rendering methods below.
 
-## Getting Started
+![notflix](https://user-images.githubusercontent.com/56903269/209973264-8c485c1b-0ad6-4164-933b-7021eaacd14a.png)
 
-First, run the development server:
+# User authentication
+For user authentication, I used Magic Auth (https://magic.link/docs/home/welcome) to provide a passwordless login which uses email verification. Magic Auth provides a DID token which I later used to create a JSON web token to authenticate the user. The user will be automatically be signed out
+if no cookies are created.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+# Youtube API
+I obtained video data from the Youtube API and due to the API limit, I saved the data in a JSON format and used them for the videos page so it is not dynamic (A dynamic videos page was the initial plan but I ran out of limit as mentioned before).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Static Generation 
+Since I have the youtube videos data stored locally, I used static site generation since the data is available at build time. NextJS pre-renders content by default which is later hydrated. This method allows for caching on the CDN networks without configuration so it helps to improve loading times.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+# Incremental Static Regeneration 
+When there's dynamic data such as view counts, static generation does not update it since the content is pre-rendered during built time. This is where incremental static regeneration comes in. It uses a revalidatation interval where it will rebuild and update the cache with latest data. To provide an example, a revalidate value of 60 seconds will mean that when a subsequent user loads a page that has been cached the first time, the timer will run for 60s before regenerating the page and updating the cache. This is how the view count data updates.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Server Side Rendering
+As this is a content-heavy site for videos, server side rendering will be a good technique here as the server can take on the load of pre-rendering the html with the video content and at the same time, allow for proper SEO (search engine optimization). This further improves the user experience due to faster loading times.
