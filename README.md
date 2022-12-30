@@ -1,6 +1,5 @@
 # Notflix
-Video streaming site based on Netflix. Uses Magic API for passwordless authentication and youtube API to fetch videos. Since it's built on NextJS,
-the server side rendering provides a very fast loading time. More details on rendering methods below.
+Video streaming site based on Netflix, built with React and NextJS. Uses Magic API for passwordless authentication and youtube API to fetch videos. Since it's built on NextJS, the server side rendering provides a very fast loading time. More details on rendering methods below.
 
 ![notflix](https://user-images.githubusercontent.com/56903269/209973264-8c485c1b-0ad6-4164-933b-7021eaacd14a.png)
 
